@@ -1,0 +1,65 @@
+package com.practice;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WindowHandle {
+	static WebDriver driver;
+
+	public  void windowHandle() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", ".//drivers//chromedriver.exe");
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://demo.automationtesting.in/Windows.html");
+		
+		System.out.println("The Title of the Current Page :" +driver.getTitle());
+		
+		WebElement tabedWindow=driver.findElement(By.xpath("//a[contains(text(),'Open New Seperate Windows')]"));
+		tabedWindow.click();
+		
+		
+		
+		WebElement clickButton=driver.findElement(By.xpath("//a[@href='http://www.sakinalium.in']//button[@class='btn btn-info'][contains(text(),'click')]"));
+		clickButton.click();
+		Thread.sleep(300);
+		
+		switchToWindow(2);
+		
+		System.out.println("The Child Window Title: " +driver.getTitle());
+		
+		driver.close();
+		Thread.sleep(400);
+		
+		switchToWindow(1);
+		
+		driver.quit();
+		
+
+	}
+
+
+
+public static void switchToWindow(int index) {
+	
+	String windowID=null;
+	Set<String> windowId=driver.getWindowHandles();
+	Iterator<String> iter=windowId.iterator();
+	
+	for(int i=0;i<=index;i++)
+	{
+		windowID=iter.next();
+		
+	}
+	
+	driver.switchTo().window(windowID);
+	
+	
+	
+}
+
+}

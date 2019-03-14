@@ -1,0 +1,31 @@
+package com.practice;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Draganddrop {
+
+	static WebDriver driver;
+	static String baseurl="http://demo.guru99.com/test/drag_drop.html";
+	static String exepath=".//drivers//chromedriver.exe";
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver",exepath);
+		 driver=new ChromeDriver();
+		 driver.manage().window().maximize();
+		 driver.get(baseurl);
+		 WebElement bank=driver.findElement(By.linkText("BANK"));
+		 WebElement account=driver.findElement(By.id("bank"));
+		 driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		 Actions drag=new Actions(driver);
+		 drag.dragAndDrop(bank, account).perform();
+		 System.out.println("Drag and drop is complete");
+		 driver.quit();
+
+	}
+
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+<Parameter name="email" value="user@example.com"/>
+<Parameter name="password" value="eW5PEXgz"/>
+  <test name="Test">
+    <classes>
+      <class name="TestNG.Login"/>
+      
+    </classes>
+    <Parameter name="email1" value="user@example.com"/>
+    Parameter name="password1" value=" "/>
+    <test name="Test">
+    <classes>
+    <classs name="TestNG.Login">
+    </classes>
+    </test>
+    </test>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
