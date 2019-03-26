@@ -24,7 +24,8 @@ public class CheckoutFlowSA {
 	public static void main(String[] args) throws Exception {
 		//womenNewInTabforSA();
 		//menNewInTabforSA();
-		kidsNewInTabforSA();
+		//kidsNewInTabforSA();
+		womenSaleTabforSA();
 		
 	}
 	
@@ -100,6 +101,28 @@ public class CheckoutFlowSA {
 		
 	}
 	
+	public static void womenSaleTabforSA()throws Exception {
+		try {
+		openingBrowser();
+		verifyURL();			   
+		selectProductForWomenSaleTab();			
+		clickOnAddToBagButton();			   
+		clickOnCheckoutButton();
+		clickonContinueAsGuestButton();
+		shippingAddress();
+		verifyPaymentPage();
+		/*MailerUtil mail = new MailerUtil();
+		mail.sendMail();*/
+		closeWindow();
+	} catch (Exception e) {
+		// TODO: handle exception
+		System.out.println(e.getMessage());			
+		FirstClass.takeSnapShot(driver, ".//ScreenShots//catchCheckoutFlowSA.png");
+		driver.quit();
+	}
+	}
+
+	
 	public static void openingBrowser() {
 		
 		ChromeOptions ops=new ChromeOptions();
@@ -134,6 +157,19 @@ public class CheckoutFlowSA {
 		WebElement new_In=driver.findElement(By.linkText("NEW IN"));
 		Actions action = new Actions(driver);
         action.moveToElement(new_In).click().build().perform();
+        Thread.sleep(1000);
+		WebElement product=driver.findElement(By.xpath("//div[@id='instant-search-results-container']//div[2]//li//div[1]//a[1]"));
+		action.moveToElement(product).click().build().perform();	
+		
+	}
+	
+	
+	public static void selectProductForWomenSaleTab()throws Exception {
+		driver.findElement(By.xpath("//a[@title=\"Women's Store\"]")).click();
+		Thread.sleep(1000);
+		//driver.findElement(By.linkText("SALE"));
+		Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(By.linkText("SALE"))).click().build().perform();
         Thread.sleep(1000);
 		WebElement product=driver.findElement(By.xpath("//div[@id='instant-search-results-container']//div[2]//li//div[1]//a[1]"));
 		action.moveToElement(product).click().build().perform();	
@@ -212,10 +248,10 @@ public class CheckoutFlowSA {
 	
 	public static void shippingAddress() throws Exception {
 		
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		/*WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement element = wait.until(
 		ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='firstname']")));
-		Thread.sleep(1000);
+		*/
 		WebElement firstName=driver.findElement(By.xpath("//input[@name='firstname']"));
 		firstName.clear();
 		firstName.sendKeys("test");
@@ -235,12 +271,10 @@ public class CheckoutFlowSA {
 			List<WebElement> Sizeofdropdown = cityValue.getOptions();
 			int iListSize = Sizeofdropdown.size();
 			for(int i =0; i < iListSize ; i++){
-				
 				String sValue = cityValue.getOptions().get(i).getText();
 				cityValue.selectByIndex(i);	
 			}				
 		}
-		//cityname.selectByValue("Abqaiq");
 		
 		WebElement  area=driver.findElement(By.xpath("//select[@name='postcode']"));
 		area.click();
